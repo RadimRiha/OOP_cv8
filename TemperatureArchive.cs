@@ -68,7 +68,7 @@ namespace OOP_cv8
             if (month < 1 || month > 12) throw new Exception("Month outside of range <1:12>");
             foreach (AnnualTemperature yearEntry in _archive.Values)
             {
-                Console.WriteLine("{0}:\t{1:F1}", yearEntry.Year, yearEntry.MonthlyTemperatures[month + 1]);
+                Console.WriteLine("{0}:\t{1:F1}", yearEntry.Year, yearEntry.MonthlyTemperatures[month - 1]);
             }
         }
     }
