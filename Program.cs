@@ -28,8 +28,8 @@ namespace OOP_cv8
             Console.WriteLine("Average temperatures for all years:");
             archive.PrintAverageAnnualTemperatures();
             Console.WriteLine();
-            Console.WriteLine("Average temperatures in January:");
-            archive.PrintAverageMonthlyTemperatures(1);
+            Console.WriteLine("Average monthly temperatures:");
+            archive.PrintAverageMonthlyTemperatures();
             archive.Calibration(-0.1);
             Console.WriteLine();
             Console.WriteLine("Temperatures after calibration of -0.1:");

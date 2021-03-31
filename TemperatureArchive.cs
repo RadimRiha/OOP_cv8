@@ -53,23 +53,28 @@ namespace OOP_cv8
         {
             foreach (AnnualTemperature yearEntry in _archive.Values)
             {
-                Console.WriteLine(yearEntry.Year + ":\t" + string.Join("\t", yearEntry.MonthlyTemperatures.Select(s => string.Format("{0,5:F1}", s))));
+                Console.WriteLine(yearEntry.Year + ":" + string.Join(" ", yearEntry.MonthlyTemperatures.Select(s => string.Format("{0,6:F1}", s))));
             }
         }
         public void PrintAverageAnnualTemperatures()
         {
             foreach (AnnualTemperature yearEntry in _archive.Values)
             {
-                Console.WriteLine("{0}:\t{1:F1}", yearEntry.Year, yearEntry.AverageAnnualTemperature);
+                Console.WriteLine("{0}: {1,6:F1}", yearEntry.Year, yearEntry.AverageAnnualTemperature);
             }
         }
-        public void PrintAverageMonthlyTemperatures(int month)
+        public void PrintAverageMonthlyTemperatures()
         {
-            if (month < 1 || month > 12) throw new Exception("Month outside of range <1:12>");
-            foreach (AnnualTemperature yearEntry in _archive.Values)
+            for (int month = 1; month <= 12; month++)
             {
-                Console.WriteLine("{0}:\t{1:F1}", yearEntry.Year, yearEntry.MonthlyTemperatures[month - 1]);
+                double sum = 0;
+                foreach (AnnualTemperature yearEntry in _archive.Values)
+                {
+                    sum += yearEntry.MonthlyTemperatures[month - 1];
+                }
+                Console.Write(" {0,6:F1}", sum / _archive.Count());
             }
+            Console.WriteLine();
         }
     }
 }
