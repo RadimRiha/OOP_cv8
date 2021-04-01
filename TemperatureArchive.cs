@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Globalization;
 
 namespace OOP_cv8
 {
@@ -17,7 +18,7 @@ namespace OOP_cv8
             {
                 outputFile.Write(yearEntry.Year);
                 outputFile.Write(":");
-                outputFile.WriteLine(String.Join(";", yearEntry.MonthlyTemperatures));
+                outputFile.WriteLine(String.Join(";", yearEntry.MonthlyTemperatures.Select(s => s.ToString(CultureInfo.InvariantCulture))));
             }
             outputFile.Close();
         }
@@ -33,7 +34,7 @@ namespace OOP_cv8
                 if (inputData.Length != 2) throw new Exception("Wrong data in file");
                 year = Int16.Parse(inputData[0]);
                 if (_archive.ContainsKey(year)) throw new Exception("Year contained multiple times in file");
-                _archive.Add(year, new AnnualTemperature(year, inputData[1].Split(';').Select(double.Parse).ToList()));
+                _archive.Add(year, new AnnualTemperature(year, inputData[1].Split(';').Select(s => Double.Parse(s, CultureInfo.InvariantCulture)).ToList()));
             }
             inputFile.Close();
         }
@@ -53,7 +54,7 @@ namespace OOP_cv8
         {
             foreach (AnnualTemperature yearEntry in _archive.Values)
             {
-                Console.WriteLine(yearEntry.Year + ":" + string.Join(" ", yearEntry.MonthlyTemperatures.Select(s => string.Format("{0,6:F1}", s))));
+                Console.WriteLine(yearEntry.Year + ":" + String.Join(" ", yearEntry.MonthlyTemperatures.Select(s => String.Format("{0,6:F1}", s))));
             }
         }
         public void PrintAverageAnnualTemperatures()
